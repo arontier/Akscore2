@@ -430,9 +430,9 @@ def mol_2_graph(ligand_pdb, protein_file,clus_list=None):
         error = 1 
     except Exception as E:
         logging.info(f"{E}, error ligand")
-        node_attrs = torch.tensor(np.zeros([10,10]),dtype=torch.float)
-        edge_attrs = torch.tensor(np.zeros([10,10]),dtype=torch.float)
-        edge_index = torch.tensor(np.zeros([10,10]),dtype=torch.long)
+        node_attrs = torch.tensor(np.zeros([100,73]),dtype=torch.float)
+        edge_attrs = torch.tensor(np.zeros([1000,24]),dtype=torch.float)
+        edge_index = torch.tensor(np.zeros([1000,2]),dtype=torch.long)
         edge_indexs = edge_index.t().contiguous()
         error = 0
 
