@@ -44,12 +44,8 @@ multi output
 (Data(x=[145, 73], edge_index=[2, 2158], edge_attr=[2158, 24], name='1a30_490'), 1)
 (Data(x=[127, 73], edge_index=[2, 2258], edge_attr=[2258, 24], name='1a30_498'), 1)
 (Data(x=[120, 73], edge_index=[2, 2018], edge_attr=[2018, 24], name='1a30_538'), 1)
-(Data(x=[105, 73], edge_index=[2, 1798], edge_attr=[1798, 24], name='1a30_559'), 1)
 (Data(x=[141, 73], edge_index=[2, 1904], edge_attr=[1904, 24], name='1a30_569'), 1)
-(Data(x=[114, 73], edge_index=[2, 1788], edge_attr=[1788, 24], name='1a30_577'), 1)
-(Data(x=[146, 73], edge_index=[2, 2498], edge_attr=[2498, 24], name='1a30_653'), 1)
 (Data(x=[139, 73], edge_index=[2, 1528], edge_attr=[1528, 24], name='1a30_664'), 1)
-(Data(x=[139, 73], edge_index=[2, 1780], edge_attr=[1780, 24], name='1a30_667'), 1)
 (Data(x=[112, 73], edge_index=[2, 1634], edge_attr=[1634, 24], name='1a30_670'), 1)
 (Data(x=[154, 73], edge_index=[2, 1646], edge_attr=[1646, 24], name='1a30_671'), 1)
 (Data(x=[131, 73], edge_index=[2, 2102], edge_attr=[2102, 24], name='1a30_6'), 1)
@@ -89,7 +85,6 @@ multi output
 (Data(x=[131, 73], edge_index=[2, 2100], edge_attr=[2100, 24], name='1a30_997'), 1)
 (Data(x=[138, 73], edge_index=[2, 2086], edge_attr=[2086, 24], name='1a30_999'), 1)
 (Data(x=[153, 73], edge_index=[2, 2014], edge_attr=[2014, 24], name='1a30_ligand'), 1)
-
 ```
 ### input error
 
@@ -101,7 +96,7 @@ python input_data.py -r input_example/1a30_protein.pdb -l input_example/test_pdb
 output
 ```
 INFO:root:, error ligand
-(Data(x=[10, 10], edge_index=[10, 10], edge_attr=[10, 10], name='1a30_128'), 0)
+(Data(x=[100, 73], edge_index=[2, 1000], edge_attr=[1000, 24], name='1a30_128'), 0)
 (Data(x=[165, 73], edge_index=[2, 2126], edge_attr=[2126, 24], name='1a30_130'), 1)
 (Data(x=[164, 73], edge_index=[2, 2150], edge_attr=[2150, 24], name='1a30_139'), 1)
 (Data(x=[117, 73], edge_index=[2, 1720], edge_attr=[1720, 24], name='1a30_140'), 1)
@@ -131,12 +126,8 @@ INFO:root:, error ligand
 (Data(x=[145, 73], edge_index=[2, 2158], edge_attr=[2158, 24], name='1a30_490'), 1)
 (Data(x=[127, 73], edge_index=[2, 2258], edge_attr=[2258, 24], name='1a30_498'), 1)
 (Data(x=[120, 73], edge_index=[2, 2018], edge_attr=[2018, 24], name='1a30_538'), 1)
-(Data(x=[105, 73], edge_index=[2, 1798], edge_attr=[1798, 24], name='1a30_559'), 1)
 (Data(x=[141, 73], edge_index=[2, 1904], edge_attr=[1904, 24], name='1a30_569'), 1)
-(Data(x=[114, 73], edge_index=[2, 1788], edge_attr=[1788, 24], name='1a30_577'), 1)
-(Data(x=[146, 73], edge_index=[2, 2498], edge_attr=[2498, 24], name='1a30_653'), 1)
 (Data(x=[139, 73], edge_index=[2, 1528], edge_attr=[1528, 24], name='1a30_664'), 1)
-(Data(x=[139, 73], edge_index=[2, 1780], edge_attr=[1780, 24], name='1a30_667'), 1)
 (Data(x=[112, 73], edge_index=[2, 1634], edge_attr=[1634, 24], name='1a30_670'), 1)
 (Data(x=[154, 73], edge_index=[2, 1646], edge_attr=[1646, 24], name='1a30_671'), 1)
 (Data(x=[131, 73], edge_index=[2, 2102], edge_attr=[2102, 24], name='1a30_6'), 1)
@@ -176,4 +167,5 @@ INFO:root:, error ligand
 (Data(x=[131, 73], edge_index=[2, 2100], edge_attr=[2100, 24], name='1a30_997'), 1)
 (Data(x=[138, 73], edge_index=[2, 2086], edge_attr=[2086, 24], name='1a30_999'), 1)
 (Data(x=[153, 73], edge_index=[2, 2014], edge_attr=[2014, 24], name='1a30_ligand'), 1)
+
 ```
