@@ -561,18 +561,11 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser()
     parser.add_argument('-r','--receptor', help='receptor pdb')
     parser.add_argument('-l','--ligands', help='ligands dlg or pdbqt or dlg, pdbqt list')
-    parser.add_argument('-o','--output', help='output')
     args = parser.parse_args()
-#   input : pdb file, dlg file list(or pdbqt file list)
-
-    #pdb = '/Arontier/People/junsuha/CASF-2016/coreset/1a30/1a30_protein.pdb'
     pdb = args.receptor 
     ligands = args.ligands
-    output = args.output
     ligands = pdb_list_cut(ligands)
     for ligand in ligands:
         dmps = make_graph(pdb,ligand)
         print(dmps)
-#    with open(output,'wb') as f:
-#        pickle.dump(dmps,f)
 
