@@ -63,8 +63,8 @@ class akscore2_dataset(Dataset):
 if __name__ == "__main__" :
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r','--receptor_path', default='input_example/1nc1_protein.pdb', help='receptor pdb')
-    parser.add_argument('-l','--ligand_path', default='input_example/1nc1_ligand.pdb', help='ligands dlg or pdbqt or dlg, pdbqt list')
+    parser.add_argument('-r','--receptor_path', default='examples/1nc1_protein.pdb', help='receptor pdb')
+    parser.add_argument('-l','--ligand_path', default='examples/1nc1_ligand.pdb', help='ligands dlg or pdbqt or dlg, pdbqt list')
     parser.add_argument('-o','--output', default='result.csv', help='result output file')
     parser.add_argument('-s','--select_dock_model', default='akscore2_dockc', help='select either akscore2_dockc or akscore_docks')
 
@@ -130,9 +130,9 @@ if __name__ == "__main__" :
                 pred_dock_b = pred_dock_b+pred_dock_r
 
             pred_ens = pred_nondock_sigmoid*pred_dock_b
-            pred_ens = pred_ens.squeeze().cpu().detach().numpy()
-            pred_nondock_sigmoid = pred_nondock_sigmoid.squeeze().cpu().detach().numpy()
-            pred_dock_b = pred_dock_b.squeeze().cpu().detach().numpy()
+            pred_ens = pred_ens.squeeze(1).cpu().detach().numpy()
+            pred_nondock_sigmoid = pred_nondock_sigmoid.squeeze(1).cpu().detach().numpy()
+            pred_dock_b = pred_dock_b.squeeze(1).cpu().detach().numpy()
             error_graph_tag_batch = error_graph_tag_batch.squeeze().cpu().detach().numpy()
 
             ##### put nan to error graph
@@ -147,4 +147,4 @@ if __name__ == "__main__" :
 
     result_df = pd.DataFrame(result_dict)
     result_df = result_df.round(4)
-    result_df.to_csv(args.output, sep='\t', index=False)
+    result_df.to_csv(args.output, sep='\t',na_rep='NaN', index=False)
