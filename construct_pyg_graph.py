@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 
 
-import sys, os
+import os
 import numpy as np
 
 import rdkit.Chem as Chem
-import rdkit.Chem.AllChem as AllChem
 import rdkit.Chem.rdchem as rdchem
 from rdkit.Chem.rdchem import BondStereo, BondType, HybridizationType
 from rdkit import RDLogger 
@@ -19,7 +18,6 @@ from meeko import PDBQTMolecule, MoleculePreparation, rdkitutils
 from openbabel import pybel as pb
 from io import StringIO, BytesIO
 from rdkit.Chem.rdmolfiles import ForwardSDMolSupplier
-import random
 import math
 from openbabel.openbabel import *
 

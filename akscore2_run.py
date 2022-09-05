@@ -65,16 +65,15 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser()
     parser.add_argument('-r','--receptor_path', default='examples/1nc1_protein.pdb', help='receptor pdb')
     parser.add_argument('-l','--ligand_path', default='examples/1nc1_ligand.pdb', help='ligands dlg or pdbqt or dlg, pdbqt list')
-    parser.add_argument('-o','--output', default='result.csv', help='result output file')
     parser.add_argument('-s','--select_dock_model', default='akscore2_dockc', help='select either akscore2_dockc or akscore_docks')
-
+    parser.add_argument('-o','--output', default='result.csv', help='result output file')
 
     parser.add_argument('-ndw','--akscore2_nondock_weight_path', default='model_weights/akscore2_nondock_weights.pth', help='akscore2_nondock_weight_path')
     parser.add_argument('-dsw','--akscore2_docks_weight_path', default='model_weights/akscore2_docks_weights.pth', help='akscore2_docks_weight_path')
     parser.add_argument('-dcw','--akscore2_dockc_weight_path', default='model_weights/akscore2_dockc_weights.pth', help='akscore2_dockc_weight_path')
 
     parser.add_argument('--batch_size', default=8, type=int, help='batch size')
-    parser.add_argument('--num_workers', default=0, type=int, help="cpu worker number")
+    parser.add_argument('--num_workers', default=8, type=int, help="cpu worker number")
     parser.add_argument('--device', type=str, default='gpu', help='choose device: cpu or gpu')
 
     args = parser.parse_args()
