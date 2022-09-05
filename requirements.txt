@@ -1,0 +1,6 @@
+torch==1.10.2
+numpy==1.21.3
+pyg==2.0.4
+rdkit-pypi==2022.3.1
+openbabel-wheel==3.1.1
+meeko==0.3.3
