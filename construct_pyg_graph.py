@@ -1,27 +1,18 @@
 #!/usr/bin/env python
 
 
-import sys, os, pickle, gzip
+import sys, os
 import numpy as np
-import pandas as pd
-import subprocess
-
-from tqdm import tqdm
-from glob import glob
-from multiprocessing import Pool
 
 import rdkit.Chem as Chem
 import rdkit.Chem.AllChem as AllChem
 import rdkit.Chem.rdchem as rdchem
 from rdkit.Chem.rdchem import BondStereo, BondType, HybridizationType
-from rdkit.Chem import rdmolfiles
-from rdkit.Chem import rdPartialCharges
 from rdkit import RDLogger 
 RDLogger.DisableLog('rdApp.*')
 
 import torch
 from torch_geometric.data import Data
-#from torch_geometric.loader import DataLoader
 
 import logging
 from meeko import PDBQTMolecule, MoleculePreparation, rdkitutils
@@ -30,8 +21,6 @@ from io import StringIO, BytesIO
 from rdkit.Chem.rdmolfiles import ForwardSDMolSupplier
 import random
 import math
-import random
-from time import perf_counter
 from openbabel.openbabel import *
 
 
@@ -186,6 +175,7 @@ def get_default_config():
             'rigidify_bonds_indices': [],
             'double_bond_penalty': 50,
             'atom_type_smarts': {},
+            'is_protein_sidechain': False,
             'add_index_map': False,
             'remove_smiles': False,
             }
@@ -223,6 +213,7 @@ def poss2data(poss_mols,clus_list=None):
     for i_mol,mol in enumerate(poss_mols) :
         try :
             pdbqt_string=mol.write_pdbqt_string()
+
             mol = mol.export_rdkit_mol(exclude_hydrogens=False) # 수소 위치가 필요 없으면 True
         except RuntimeError :
             pdbqt_string=mol.write_pdbqt_string()
@@ -235,7 +226,6 @@ def poss2data(poss_mols,clus_list=None):
             suppl = ForwardSDMolSupplier(bytes_io,removeHs=False)
             for mol in suppl:
                 break
-    
         Chem.AssignStereochemistryFrom3D(mol)
 #        mol = Chem.RemoveHs(mol)
         l = 0
@@ -388,13 +378,13 @@ def mol_2_graph(ligand_pdb, protein_file,clus_list=None):
     ## make rdkit.mol for node and edge
     try:
         ligand_mol = pdb2mol(ligand_pdb)
+        if ligand_mol == None:
+            raise Exception("no have ligand")
         ligand_poss = rdkit_mol_TO_pdbqt(ligand_mol)
         poss_mols = PDBQTMolecule(ligand_poss)
 
         ligand_mol, ligand_data = poss2data(poss_mols)
         ## node part
-        if ligand_mol == None:
-            raise Exception("no have ligand")
         pocket_file = make_pocket(protein_file,ligand_data)
         pocket_mol, pocket_data, bond = pdb2data(pocket_file)
 
@@ -403,7 +393,6 @@ def mol_2_graph(ligand_pdb, protein_file,clus_list=None):
         node_pocket, xyz_pocket = featurize.AtomNode(pocket_mol, pocket_data, pocket=True) 
         node_ligand, xyz_ligand = featurize.AtomNode(ligand_mol, ligand_data, pocket=False)
         node_attr = node_pocket + node_ligand
-        node_attr = np.array(node_attr)
         P_num = len(node_pocket)
            
             
@@ -419,20 +408,18 @@ def mol_2_graph(ligand_pdb, protein_file,clus_list=None):
         
         ## total edge for Graph
         edge_index = edge_index_pocket + edge_index_ligand + edge_index_PL_non
-        edge_index = np.array(edge_index)
         edge_attr  = edge_attr_pocket  + edge_attr_ligand  + edge_attr_PL_non
-        edge_attr = np.array(edge_attr)
             
-        node_attrs = torch.tensor(node_attr,dtype=torch.float)
-        edge_attrs = torch.tensor(edge_attr,dtype=torch.float)
-        edge_index = torch.tensor(edge_index,dtype=torch.long)
+        node_attrs = torch.tensor(np.array(node_attr),dtype=torch.float)
+        edge_attrs = torch.tensor(np.array(edge_attr),dtype=torch.float)
+        edge_index = torch.tensor(np.array(edge_index),dtype=torch.long)
         edge_indexs = edge_index.t().contiguous()
         error = 1 
     except Exception as E:
         logging.info(f"{E}, error ligand")
-        node_attrs = torch.tensor(np.zeros([100,73]),dtype=torch.float)
-        edge_attrs = torch.tensor(np.zeros([1000,24]),dtype=torch.float)
-        edge_index = torch.tensor(np.zeros([1000,2]),dtype=torch.long)
+        node_attrs = torch.tensor(np.zeros([10,10]),dtype=torch.float)
+        edge_attrs = torch.tensor(np.zeros([10,10]),dtype=torch.float)
+        edge_index = torch.tensor(np.zeros([10,10]),dtype=torch.long)
         edge_indexs = edge_index.t().contiguous()
         error = 0
 
@@ -561,11 +548,18 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser()
     parser.add_argument('-r','--receptor', help='receptor pdb')
     parser.add_argument('-l','--ligands', help='ligands dlg or pdbqt or dlg, pdbqt list')
+    parser.add_argument('-o','--output', help='output')
     args = parser.parse_args()
+#   input : pdb file, dlg file list(or pdbqt file list)
+
+    #pdb = '/Arontier/People/junsuha/CASF-2016/coreset/1a30/1a30_protein.pdb'
     pdb = args.receptor 
     ligands = args.ligands
+    output = args.output
     ligands = pdb_list_cut(ligands)
     for ligand in ligands:
         dmps = make_graph(pdb,ligand)
         print(dmps)
+#    with open(output,'wb') as f:
+#        pickle.dump(dmps,f)
 
