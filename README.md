@@ -22,7 +22,7 @@ If you want to use Akscore2_DockS model instead of Akscore2_DockC, change to `-s
 
 In the result file, those failed to contruct graph are filled with NaN.
 
-(3) If you wand to get final ensemble score described in the paper that includes autodock score, you need to install and run the autodock by yourself and simply plus the score to the result of Akscore2. 
+(3) If you want to get final ensemble score described in the paper that includes autodock score, you need to install and run the autodock by yourself and simply plus the score to the result of Akscore2. 
 
 ## License
 Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
