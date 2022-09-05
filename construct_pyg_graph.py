@@ -175,7 +175,6 @@ def get_default_config():
             'rigidify_bonds_indices': [],
             'double_bond_penalty': 50,
             'atom_type_smarts': {},
-            'is_protein_sidechain': False,
             'add_index_map': False,
             'remove_smiles': False,
             }
@@ -417,9 +416,9 @@ def mol_2_graph(ligand_pdb, protein_file,clus_list=None):
         error = 1 
     except Exception as E:
         logging.info(f"{E}, error ligand")
-        node_attrs = torch.tensor(np.zeros([10,10]),dtype=torch.float)
-        edge_attrs = torch.tensor(np.zeros([10,10]),dtype=torch.float)
-        edge_index = torch.tensor(np.zeros([10,10]),dtype=torch.long)
+        node_attrs = torch.tensor(np.zeros([100,73]),dtype=torch.float)
+        edge_attrs = torch.tensor(np.zeros([1000,24]),dtype=torch.float)
+        edge_index = torch.tensor(np.zeros([1000,2]),dtype=torch.long)
         edge_indexs = edge_index.t().contiguous()
         error = 0
 
@@ -548,18 +547,14 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser()
     parser.add_argument('-r','--receptor', help='receptor pdb')
     parser.add_argument('-l','--ligands', help='ligands dlg or pdbqt or dlg, pdbqt list')
-    parser.add_argument('-o','--output', help='output')
     args = parser.parse_args()
-#   input : pdb file, dlg file list(or pdbqt file list)
 
-    #pdb = '/Arontier/People/junsuha/CASF-2016/coreset/1a30/1a30_protein.pdb'
     pdb = args.receptor 
     ligands = args.ligands
-    output = args.output
+    
     ligands = pdb_list_cut(ligands)
     for ligand in ligands:
         dmps = make_graph(pdb,ligand)
         print(dmps)
-#    with open(output,'wb') as f:
-#        pickle.dump(dmps,f)
+
 
