@@ -134,7 +134,7 @@ def pdb2mol(pdb):
     try:
         return Chem.MolFromPDBFile(pdb)
     except:
-        return Chem.MolFromPDBBlock(pdb,sanitize=True)
+        return Chem.MolFromPDBBlock(pdb,removeHs=False)
 
 
 def pdb2data(file):
