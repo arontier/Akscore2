@@ -17,7 +17,7 @@ from rdkit.Chem.rdchem import BondStereo, BondType, HybridizationType
 from rdkit.Chem import rdmolfiles
 from rdkit.Chem import rdPartialCharges
 from rdkit import RDLogger 
-#RDLogger.DisableLog('rdApp.*')
+RDLogger.DisableLog('rdApp.*')
 
 import torch
 from torch_geometric.data import Data
