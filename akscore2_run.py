@@ -73,7 +73,7 @@ if __name__ == "__main__" :
     parser.add_argument('-dcw','--akscore2_dockc_weight_path', default='model_weights/akscore2_dockc_weights.pth', help='akscore2_dockc_weight_path')
 
     parser.add_argument('--batch_size', default=8, type=int, help='batch size')
-    parser.add_argument('--num_workers', default=8, type=int, help="cpu worker number")
+    parser.add_argument('--ncpu', default=8, type=int, help="cpu worker number")
     parser.add_argument('--device', type=str, default='gpu', help='choose device: cpu or gpu')
 
     args = parser.parse_args()
@@ -107,7 +107,7 @@ if __name__ == "__main__" :
 
 
     dataset = akscore2_dataset(args.receptor_path, args.ligand_path)
-    loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers)
+    loader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.ncpu)
     result_dict = {
         "akscore2_nondock": [],
         "akscore2_dock": [],
