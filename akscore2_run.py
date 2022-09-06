@@ -4,8 +4,8 @@ import torch
 from torch_geometric.data import Dataset
 import pandas as pd
 import numpy as np
-from .construct_pyg_graph import pdb_list_cut, make_graph
-from .akscore2_models import Akscore2_DockC, Akscore2_DockS, Akscore2_NonDock
+from construct_pyg_graph import pdb_list_cut, make_graph
+from akscore2_models import Akscore2_DockC, Akscore2_DockS, Akscore2_NonDock
 
 
 class akscore2_dataset(Dataset):
