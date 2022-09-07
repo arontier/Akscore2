@@ -13,6 +13,7 @@ def mol2pdb(file,output):
     notatend = obconversion.ReadFile(obmol,file)
     while notatend:
         fs.write(obconversion.WriteString(obmol))
+        fs.write('ENDMDL\n')
         obmol = OBMol()
         notatend = obconversion.Read(obmol)
 
