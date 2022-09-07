@@ -20,8 +20,8 @@ def mol2pdb(file,output):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-l','--ligands', help='ligands mol2')
-    parser.add_argument('-o','--output', help='output pdb file')
+    parser.add_argument('-l','--ligands', default='examples/1nc1_ligand.mol2', help='ligands .mol2')
+    parser.add_argument('-o','--output', default='examples/1nc1_mol2_ligand.pdb', help='output .pdb')
     args = parser.parse_args()
     
     mol2pdb(args.ligands,args.output)

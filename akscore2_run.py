@@ -63,8 +63,8 @@ class akscore2_dataset(Dataset):
 if __name__ == "__main__" :
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r','--receptor_path', default='examples/1nc1_protein.pdb', help='receptor pdb')
-    parser.add_argument('-l','--ligand_path', default='examples/1nc1_ligand.pdb', help='ligands dlg or pdbqt or dlg, pdbqt list')
+    parser.add_argument('-r','--receptor_path', default='examples/1nc1_protein.pdb', help='receptor .pdb')
+    parser.add_argument('-l','--ligand_path', default='examples/1nc1_ligand.pdb', help='ligand .pdb')
     parser.add_argument('-s','--select_dock_model', default='akscore2_dockc', help='select either akscore2_dockc or akscore_docks')
     parser.add_argument('-o','--output', default='result.csv', help='result output file')
 

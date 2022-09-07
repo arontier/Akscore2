@@ -10,9 +10,9 @@
 - pandas >= 1.4.2
 
 ## Usages
-(1) Convert protein and ligand files into .pdb format that like in example directory.
+(1) Convert ligand .mol2 files into .pdb format that like in the example directory.
 ```
-python convert -i -o ....
+python convert_mol2pdb.py -l examples/1nc1_ligand.mol2 -o examples/1nc1_mol2_ligand.pdb
 ```
 (2) Run Akscore2 to get binding affinity score by following command. It will first construct graph using .pdb file and then output result of Akscore2_NonDock, Akscore2_Dock and their multiplication. 
 ```
