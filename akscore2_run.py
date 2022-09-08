@@ -24,7 +24,8 @@ class akscore2_dataset(Dataset):
             protein_edge_attr_idx = torch.where((edge_attr[:, :3] == torch.Tensor([1, 0, 0])).all(dim=1))[0]
             ligand_edge_attr_idx = torch.where((edge_attr[:, :3] == torch.Tensor([0, 1, 0])).all(dim=1))[0]
 
-            #### remove docking feature for platform app
+            #### remove features related to after docking for Akscore2_nondock model
+            #### small bug: the node feature should not have removed. it is hydrophobic feature.
             x = torch.concat((x[:, :-5], x[:, -4:]), axis=1)
             edge_attr = edge_attr[:, 3:-9]
 
