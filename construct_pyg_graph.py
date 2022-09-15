@@ -346,11 +346,11 @@ class Featurize:
             LP_Hydrogen = pocket_node[prot_idx][-3], ligand_node[lig_idx][-4]
             LP_Hydrogen_bond = 1 if LP_Hydrogen == (1, 1) else 0
             
-            prot_ionic_prop = pocket_node[prot_idx][-6]
-            lig_ionic_prop  = ligand_node[lig_idx][-6]
-            
-            Ionic_bond_PL = 1 if prot_ionic_prop < 0 and lig_ionic_prop > 0 else 0
-            Ionic_bond_LP = 1 if prot_ionic_prop > 0 and lig_ionic_prop < 0 else 0
+            PL_Hydrogen = pocket_node[prot_idx][-1], ligand_node[lig_idx][-2]
+            Ionic_bond_PL = 1 if PL_Hydrogen == (1, 1) else 0
+
+            LP_Hydrogen = pocket_node[prot_idx][-2], ligand_node[lig_idx][-1]
+            Ionic_bond_LP = 1 if LP_Hydrogen == (1, 1) else 0
 
             if distance_matrix[prot_idx][lig_idx] < 2:
                 ang_2,ang_4,ang_6,ang_8 = 1,1,1,1
