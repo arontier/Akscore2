@@ -117,11 +117,11 @@ def Mol22mol(file=None):
     return mols
 
 
-def pdb2mol(pdb):
+def pdb2mol(pdb, autobond=True):
     try:
-        return Chem.MolFromPDBFile(pdb)
+        return Chem.MolFromPDBFile(pdb, removeHs=False, proximityBonding=autobond)
     except:
-        return Chem.MolFromPDBBlock(pdb,removeHs=False)
+        return Chem.MolFromPDBBlock(pdb,removeHs=False, proximityBonding=autobond)
 
 
 def pdb2data(file):
@@ -374,7 +374,7 @@ def mol_2_graph(ligand_pdb, protein_file,clus_list=None):
     ## pocket file and ligand file to block data
     ## make rdkit.mol for node and edge
     try:
-        ligand_mol = pdb2mol(ligand_pdb)
+        ligand_mol = pdb2mol(ligand_pdb,False)
         if ligand_mol == None:
             raise Exception("no have ligand")
         ligand_poss = rdkit_mol_TO_pdbqt(ligand_mol)
