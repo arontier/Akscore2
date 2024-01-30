@@ -10,7 +10,7 @@
 - pandas >= 1.4.2
 
 ## Usages
-(1) Convert ligand .mol2 files into .pdb format that like in the example directory.
+(1) Convert ligand .mol2 files into .pdb format that like in the `examples` directory.
 ```
 python convert_mol2pdb.py -l examples/1nc1_ligand.mol2 -o examples/1nc1_mol2_ligand.pdb
 ```
@@ -18,7 +18,7 @@ python convert_mol2pdb.py -l examples/1nc1_ligand.mol2 -o examples/1nc1_mol2_lig
 ```
 python akscore2_run.py -r examples/1nc1_protein.pdb -l examples/1nc1_ligand.pdb -s akscore2_dockc -o result.csv --batch_size 8 --num_workers 8 --device gpu
 ```
-If you want to use Akscore2_DockS model instead of Akscore2_DockC, change to `-s akscore2_docks`.
+If you want to use Akscore2_DockS model instead of Akscore2_DockC, change the argument `-s akscore2_docks`.
 
 In the result file, those failed to contruct graph are filled with NaN.
 
